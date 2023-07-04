@@ -1,8 +1,8 @@
 <?xml version="1.0" encoding="utf-8" ?>
 <NEKTAR>
     <EXPANSIONS>
-        <E COMPOSITE="C[272,273]" NUMMODES="6" TYPE="MODIFIED" FIELDS="u,v,w" />
-        <E COMPOSITE="C[272,273]" NUMMODES="5" TYPE="MODIFIEDQUADPLUS1" FIELDS="p" />
+        <E COMPOSITE="C[272,273]" NUMMODES="5" TYPE="MODIFIED" FIELDS="u,v,w" />
+	<E COMPOSITE="C[272,273]" NUMMODES="4" TYPE="MODIFIEDQUADPLUS1" FIELDS="p" />
     </EXPANSIONS>
     <CONDITIONS>
         <SOLVERINFO>
@@ -12,8 +12,8 @@
             <I PROPERTY="AdvectionForm"     VALUE="Convective"/>
             <I PROPERTY="Projection"        VALUE="Galerkin" />
             <I PROPERTY="TimeIntegrationMethod" VALUE="IMEXOrder2" />
-            <I PROPERTY="GJPStabilisation" VALUE="SemiImplicit" />
-            <!--I PROPERTY="SpectralVanishingViscosity" VALUE="DGKernel" /-->
+            <!--I PROPERTY="GJPStabilisation" VALUE="SemiImplicit" /-->
+            <I PROPERTY="SpectralVanishingViscosity" VALUE="DGKernel" />
         </SOLVERINFO>
 	
 	<GLOBALSYSSOLNINFO>
@@ -21,19 +21,19 @@
                 <!--I PROPERTY="GlobalSysSoln"              VALUE="XxtStaticCond" /-->
                 <I PROPERTY="GlobalSysSoln"           VALUE="IterativeStaticCond" />
                 <I PROPERTY="Preconditioner"          VALUE="LowEnergyBlock" />
-                <I PROPERTY="IterativeSolverTolerance" VALUE="1e-9"/>
+                <I PROPERTY="IterativeSolverTolerance" VALUE="1e-8"/>
             </V>
             <V VAR="p">
                 <!--I PROPERTY="GlobalSysSoln"              VALUE="XxtStaticCond" /-->
                 <I PROPERTY="GlobalSysSoln"   VALUE="IterativeStaticCond" />
                 <I PROPERTY="Preconditioner"          VALUE="LowEnergyBlock" />
-                <I PROPERTY="IterativeSolverTolerance" VALUE="1e-7"/>
+                <I PROPERTY="IterativeSolverTolerance" VALUE="1e-6"/>
             </V>
         </GLOBALSYSSOLNINFO>
 
     <PARAMETERS>
         <P> TimeStep      =    1.0e-3                                       </P> <!-- Time step -->   
-        <P> NumSteps      =    30000                                        </P> <!-- Number of step -->
+        <P> NumSteps      =    10000                                        </P> <!-- Number of step -->
         <P> IO_CheckSteps =    5000                                        </P> <!-- Number of step to write the intermediate results -->
         <P> IO_InfoSteps  =    100                                        </P> <!-- Number of step to print information -->
         <P> IO_CFLSteps   =    100                                        </P> <!-- Number of step to print CFL number  -->
@@ -84,10 +84,7 @@
       
         <!-- Specify the initial condition -->
         <FUNCTION NAME="InitialConditions">
-        <E VAR="u" VALUE="U0" />
-        <E VAR="v" VALUE="V0" />
-        <E VAR="w" VALUE="W0" />
-        <E VAR="p" VALUE="0.0" />     
+        <F VAR="u,v,w,p" FILE="new3D10_7.rst" />     
         </FUNCTION>
     </CONDITIONS>
     
